@@ -220,7 +220,17 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(expected_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+            end
+            
+            it "asks for new input if the start position is invalid because an obstacle is in the way" do
+                # Arrange
+                expected_input = "ANN,360,#{OBSTACLE_X},#{OBSTACLE_Y},N"
+                allow(@communicator).to receive(:gets).and_return(expected_input, "") 
+                expected_prompt = MarsRoverApp::REQUEST_FOR_FURTHER_INPUT
+
+                # Act/Assert
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{expected_prompt}\n")).to_stdout
             end
 
             it "prompts the user to input movement or new direction after first input" do
@@ -230,7 +240,7 @@ class MarsRoverAppTests
                 expected_prompt = MarsRoverApp::REQUEST_FOR_FURTHER_INPUT
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including(expected_prompt)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{expected_prompt}\n")).to_stdout
             end
             
             it "updates the direction of a Rover when it turns left" do
@@ -511,7 +521,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
             end
             
             it "shows an error when the rover can't move backwards because there is an obstacle in the way" do
@@ -522,7 +532,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
             end
         end
     end
