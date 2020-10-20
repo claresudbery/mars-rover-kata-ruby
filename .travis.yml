@@ -6,6 +6,8 @@ deploy:
   provider: heroku
   api_key:
     secure: Ct+X2c9PEXUJWmAzmpLc8iTjL5fQGxac7pNC05fBwiJ4AwifEHqZyFKlWYK5MJPKpIBumP0Tum7AkcJlk0lwd+DUI+l2vkYF9v5r02qYKdW49pN86NOODqekore5GpGOfBmla9q5XCY91TfPhnRXFnC4PvyJjhBiHiSD8fDi9WMX3DTn8GP3gIERvvJ5Woqa9KyQRhHkpctGuMW4805r6lGEDwMx9Q3F2W2k6GOH4cebKf+Q0h2KjpNhqKXu1V0PT870h5y20y8L09BoRYSS/r0HnI009HJCfvlT/Y3vXv1hDQRPWkT/4uh19vCjTEK/tSI4QB0OdjHEVJhbSBy3IMG5rp6R9GspjDb8aHKJZsbHHFpnBN6wOLhnmnYU0VK6/q+utCCmRsADl2oVFMxp5I2O60NVGvYP8AEU+Y8olIOF1fLRUJ8bUrHLzlK/Q8fP0r1wQ0jK2RPY+Uyxu1+pc9HLsCEOzlfHi0pNGav+cKXkwd3Hu9Xr7fxxA5vsFNpWhm2MBdFJ9g5Pysj0UnbkgnGRIA1fuRGwwKv3TEYzSQMJIKKVnFbSHGkupMxuCB2xnJWoS6nRh1YbbvOJ+d180V8POcuwSv4RkLcSuMIGFrHDpOt8NSIRhL6+bFiX7By4JngaTUtN2/SP4clIqa330cJKzaU3BaT8g/+mjNjCN24=
+  app: mars-rover-kata-ruby
+  on: main
   run: "ruby app.rb"
 before_install:
   - gem install bundler
