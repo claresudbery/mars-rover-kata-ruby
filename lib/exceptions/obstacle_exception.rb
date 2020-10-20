@@ -1,0 +1,2 @@
+class ObstacleException < StandardError
+end
