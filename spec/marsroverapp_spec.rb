@@ -94,7 +94,7 @@ class MarsRoverAppTests
         end
 
         context "detecting invalid input" do
-            it "shows an error when the initial input is invalid" do
+            xit "shows an error when the initial input is invalid" do
                 # Arrange
                 bad_input = "ANN,BBB,0,0,N"
                 allow(@communicator).to receive(:gets).and_return("!") 
