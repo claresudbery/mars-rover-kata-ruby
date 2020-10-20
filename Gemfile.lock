@@ -16,11 +16,8 @@ GEM
       rspec-support (~> 3.9.0)
     rspec-support (3.9.3)
 
-PLATFORMS
-  x86-mingw32
-
 DEPENDENCIES
   rspec
 
 BUNDLED WITH
-   2.1.2
+   2.1.4
