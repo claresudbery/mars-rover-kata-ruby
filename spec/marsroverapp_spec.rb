@@ -379,6 +379,28 @@ class MarsRoverAppTests
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
             end
             
+            it "shows an error when the rover can't move forward because there is an obstacle in the way" do
+                # Arrange
+                initial_input = "ANN,360,0,0,N"
+                expected_move_input = "ANN,f"
+                @grid.add_obstacle(0,4)
+                allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
+
+                # Act/Assert
+                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+            end
+            
+            it "shows an error when the rover can't move backwards because there is an obstacle in the way" do
+                # Arrange
+                initial_input = "ANN,360,4,4,N"
+                expected_move_input = "ANN,b"
+                @grid.add_obstacle(4,0)
+                allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
+
+                # Act/Assert
+                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+            end
+            
             it "wraps around when it moves forward off the edge of the grid" do
                 # Arrange
                 initial_input = "ANN,360,4,4,S"
@@ -511,28 +533,6 @@ class MarsRoverAppTests
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
-            end
-            
-            it "shows an error when the rover can't move forward because there is an obstacle in the way" do
-                # Arrange
-                initial_input = "ANN,360,0,0,N"
-                expected_move_input = "ANN,f"
-                @grid.add_obstacle(0,4)
-                allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-
-                # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
-            end
-            
-            it "shows an error when the rover can't move backwards because there is an obstacle in the way" do
-                # Arrange
-                initial_input = "ANN,360,4,4,N"
-                expected_move_input = "ANN,b"
-                @grid.add_obstacle(4,0)
-                allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-
-                # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
             end
         end
     end
