@@ -16,6 +16,9 @@ GEM
       rspec-support (~> 3.9.0)
     rspec-support (3.9.3)
 
+PLATFORMS
+  ruby
+
 DEPENDENCIES
   rspec
 
