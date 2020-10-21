@@ -23,7 +23,7 @@ class WebApp < Sinatra::Base
         handle_exceptions do
             update_grid
             instructions = params["instructions"]
-            process_instructions(instructions)
+            process_instructions(instructions, session[:mars_rovers], session[:grid], MarsRoverFactory.new)
         end
 
         erb :marsrover
@@ -94,11 +94,11 @@ class WebApp < Sinatra::Base
         @output
     end
 
-    def process_instructions(instructions)
+    def process_instructions(instructions, rovers, grid, rover_factory)
         if is_movement?(instructions)
-            move_rover(instructions, session[:mars_rovers], session[:grid])
+            move_rover(instructions, rovers, grid)
         else
-            start_rover(instructions, session[:mars_rovers], session[:grid], MarsRoverFactory.new)
+            start_rover(instructions, rovers, grid, rover_factory)
         end
         update_display
     end

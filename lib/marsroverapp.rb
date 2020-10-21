@@ -39,7 +39,7 @@ class MarsRoverApp
     def move_rover_repeatedly
         instructions = ask_for_further_input
         while !instructions.empty? do
-            process_instructions(instructions)
+            process_instructions(instructions, @mars_rovers, @grid, @mars_rover_factory)
             instructions = ask_for_further_input
         end
     end
@@ -79,11 +79,11 @@ class MarsRoverApp
         @presenter.show_display(@grid)
     end
 
-    def process_instructions(instructions)
+    def process_instructions(instructions, rovers, grid, rover_factory)
         if is_movement?(instructions)
-            move_rover(instructions, @mars_rovers, @grid)
+            move_rover(instructions, rovers, grid)
         else
-            start_rover(instructions, @mars_rovers, @grid, @mars_rover_factory)
+            start_rover(instructions, rovers, grid, rover_factory)
         end
         update_display
     end
