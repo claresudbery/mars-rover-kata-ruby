@@ -48,12 +48,12 @@ class MarsRoverApp
         instructions = @communicator.get_input(AppHelper::REQUEST_FOR_FURTHER_INPUT)
     end
 
-    def move_rover(instructions)  
+    def move_rover(instructions, rovers, grid)  
         instructions = instructions.split(",")
         rover_name = instructions[0]
         instructions.shift # removes first element
         instructions.each do |movement|   
-            process_movement(movement, @mars_rovers[rover_name], @grid)
+            process_movement(movement, rovers, grid)
         end
     end
 
@@ -82,7 +82,7 @@ class MarsRoverApp
 
     def process_instructions(instructions)
         if is_movement?(instructions)
-            move_rover(instructions)
+            move_rover(instructions, @mars_rovers, @grid)
         else
             start_rover(instructions, @mars_rovers, @grid, @mars_rover_factory)
         end

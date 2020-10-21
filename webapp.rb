@@ -66,12 +66,12 @@ class WebApp < Sinatra::Base
         mars_rovers[new_rover[:name]] = rover
     end
 
-    def move_rover(instructions)  
+    def move_rover(instructions, rovers, grid)  
         instructions = instructions.split(",")
         rover_name = instructions[0]
         instructions.shift # removes first element
         instructions.each do |movement|   
-            process_movement(movement, session[:mars_rovers][rover_name], session[:grid])
+            process_movement(movement, rovers, grid)
         end
     end
 
@@ -98,7 +98,7 @@ class WebApp < Sinatra::Base
 
     def process_instructions(instructions)
         if is_movement?(instructions)
-            move_rover(instructions)
+            move_rover(instructions, session[:mars_rovers], session[:grid])
         else
             start_rover(instructions, session[:mars_rovers], session[:grid], MarsRoverFactory.new)
         end
