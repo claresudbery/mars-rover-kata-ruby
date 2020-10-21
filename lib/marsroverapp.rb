@@ -53,7 +53,7 @@ class MarsRoverApp
         rover_name = instructions[0]
         instructions.shift # removes first element
         instructions.each do |movement|   
-            process_movement(movement, rovers, grid)
+            process_movement(movement, rovers[rover_name], grid)
         end
     end
 
