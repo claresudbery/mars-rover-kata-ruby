@@ -24,13 +24,13 @@ class GridConstants
         -------------------------------
         HEREDOC
 
-    NEW_ROVER = "ANN,360,0,0,N"    
-    GRID_WITH_NEW_ROVER =
+    NEW_ROVER = "ANN,360,0,0,N"  
+    GRID_WITH_NEW_ROVER =  
         <<~HEREDOC
         -------------------------------
-        |     |     |     |     |     |
-        |     |     |     |     |     |
-        |     |     |     |     |     |
+        | 360 |     |     |     |     |
+        | ^^^ |     |     |     |     |
+        | ANN |     |     |     |     |
         -------------------------------
         |     |     |     |     |     |
         |     |     |     |     |     |

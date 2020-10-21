@@ -21,28 +21,14 @@ RSpec.describe 'The Mars Rover web app' do
 
         # Assert
         expect(last_response).to be_ok
-        expect(last_response.body).to have_tag('pre', :text => /"#{GridConstants::EMPTY_GRID_WITH_OBSTACLES}"/)
+        expect(last_response.body).to include(GridConstants::EMPTY_GRID_WITH_OBSTACLES)
       end
-    end
-  
-    context "responding to input" do  
-        it "displays user input" do
-            # Arrange
-            some_input = "SOME INPUT"
-
-            # Act
-            post "/marsrover", :instructions => some_input 
-
-            # Assert
-            expect(last_response).to be_ok
-            expect(last_response.body).to have_tag('pre', :text => "#{some_input}")
-        end
     end
 
     context "displaying grid" do
         it "remembers grid from previous posts even after multiple GET requests" do   
             # Arrange
-            some_input = "ANN,360,0,0,N"
+            some_input = GridConstants::NEW_ROVER
             post "/marsrover", :instructions => some_input
             get '/marsrover'
             
@@ -50,12 +36,12 @@ RSpec.describe 'The Mars Rover web app' do
             get '/marsrover'
             
             # Assert
-            expect(last_response.body).to have_tag('pre', :text => /"#{GridConstants::EMPTY_GRID_WITH_OBSTACLES}"/)
+            expect(last_response.body).to include(GridConstants::GRID_WITH_NEW_ROVER)
         end
         
         it "updates grid in response to user input" do   
             # Arrange
-            some_input = "ANN,360,0,0,N"
+            some_input = GridConstants::NEW_ROVER
             post "/marsrover", :instructions => some_input
             get '/marsrover'
             
@@ -63,7 +49,7 @@ RSpec.describe 'The Mars Rover web app' do
             get '/marsrover'
             
             # Assert
-            expect(last_response.body).to have_tag('pre', :text => /"#{GridConstants::GRID_WITH_NEW_ROVER}"/)
+            expect(last_response.body).to include(GridConstants::GRID_WITH_NEW_ROVER)
         end
     end
 end
