@@ -9,14 +9,22 @@ class WideScreenPresenter
         show_wide_screen_grid(grid.grid_array)        
     end
 
+    def get_display(grid)
+        get_wide_screen_grid(grid.grid_array)        
+    end
+
     private
 
-    def show_wide_screen_grid(grid_array)  
+    def show_wide_screen_grid(grid_array)
+        puts get_wide_screen_grid(grid_array)
+    end
+
+    def get_wide_screen_grid(grid_array)  
         display = ""
         grid_array.each do |row|
             display = display + @wide_screen_grid.display_row(row)
         end
         display = display + @wide_screen_grid.display_wall(grid_array[0].length)
-        puts display
+        display
     end
 end
