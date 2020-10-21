@@ -26,16 +26,31 @@ RSpec.describe 'The Mars Rover web app' do
     end
   
     context "responding to input" do  
-      it "displays user input" do
-        # Arrange
-        some_input = "SOME INPUT"
+        it "displays user input" do
+            # Arrange
+            some_input = "SOME INPUT"
 
-        # Act
-        post "/marsrover", :instructions => some_input 
+            # Act
+            post "/marsrover", :instructions => some_input 
 
-        # Assert
-        expect(last_response).to be_ok
-        expect(last_response.body).to have_tag('pre', :text => "#{some_input}")
-      end
+            # Assert
+            expect(last_response).to be_ok
+            expect(last_response.body).to have_tag('pre', :text => "#{some_input}")
+        end
+    end
+
+    context "displaying grid" do
+        it "remembers grid from previous posts even after multiple GET requests" do   
+            # Arrange
+            some_input = "ANN,360,0,0,N"
+            post "/marsrover", :instructions => some_input
+            get '/marsrover'
+            
+            # Act
+            get '/marsrover'
+            
+            # Assert
+            expect(last_response.body).to have_tag('pre', :text => /"#{GridConstants::EMPTY_GRID_WITH_OBSTACLES}"/)
+        end
     end
 end
