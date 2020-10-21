@@ -124,8 +124,10 @@ We started this repo as a group in a couple of mob sessions, deliberately using 
 - [commit 3fb5382](https://github.com/madetech/academy_2020_mob/commit/3fb5382) - All previously-pseudo-tests that ought to be passing based on latest actual implemented functionality are now unignored and passing.
     - Note that the tests using doubles and spies are now fixed and working.
     - Note also that the test context "when moving (using test spies)" in `marsroverapp_spec.rb` has an example of how to handle the mocking of deep dependencies, by [stubbing what is returned](https://github.com/madetech/academy_2020_mob/blob/3fb53826252525a52550fdbdb40337da211870e2/mars-rover/spec/marsroverapp_spec.rb#L143) by the `mars_rover_factory`.
-- [commit](https://github.com/madetech/academy_2020_mob/commit/)
-- [commit ](https://github.com/madetech/academy_2020_mob/commit/)
+- [commit 9971ff4](https://github.com/madetech/academy_2020_mob/commit/9971ff4)
+    - From this commit up to commit 2ba60f1, I implemented the command line UI as a simple web front end.
+- [commit 9f857c0](https://github.com/madetech/academy_2020_mob/commit/9f857c0)
+    - From this commit up to commit 0eb408c is an example of a step-by-step incremental refactor to put common code into a new AppHelper class.
 - [commit ](https://github.com/madetech/academy_2020_mob/commit/)
 - [commit ](https://github.com/madetech/academy_2020_mob/commit/)
 - [commit ](https://github.com/madetech/academy_2020_mob/commit/)
