@@ -51,6 +51,18 @@ class MarsRoverApp
         instructions = @communicator.get_input(AppHelper::REQUEST_FOR_FURTHER_INPUT)
     end
 
+    def update_display
+        @presenter.show_display(@grid)
+    end
+
+    def start_rover(instructions, mars_rovers, grid, mars_rover_factory)
+        new_rover = AppHelper::convert_first_input(instructions) 
+        rover = mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
+        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], grid)
+        grid.update(rover)
+        mars_rovers[new_rover[:name]] = rover
+    end
+
     def move_rover(instructions, rovers, grid)  
         instructions = instructions.split(",")
         rover_name = instructions[0]
@@ -67,18 +79,6 @@ class MarsRoverApp
             rover.move(movement, grid)
         end
         grid.update(rover)
-    end
-
-    def start_rover(instructions, mars_rovers, grid, mars_rover_factory)
-        new_rover = AppHelper::convert_first_input(instructions) 
-        rover = mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
-        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], grid)
-        grid.update(rover)
-        mars_rovers[new_rover[:name]] = rover
-    end
-
-    def update_display
-        @presenter.show_display(@grid)
     end
 
     def process_instructions(instructions, rovers, grid, rover_factory)
