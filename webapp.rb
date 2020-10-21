@@ -71,17 +71,17 @@ class WebApp < Sinatra::Base
         rover_name = instructions[0]
         instructions.shift # removes first element
         instructions.each do |movement|   
-            process_movement(movement, rover_name)
+            process_movement(movement, session[:mars_rovers][rover_name], session[:grid])
         end
     end
 
-    def process_movement(movement, rover_name)    
+    def process_movement(movement, rover, grid)    
         if is_turn?(movement)       
-            session[:mars_rovers][rover_name].turn(movement)
+            rover.turn(movement)
         else
-            session[:mars_rovers][rover_name].move(movement, session[:grid])
+            rover.move(movement, grid)
         end
-        session[:grid].update(session[:mars_rovers][rover_name])
+        grid.update(rover)
         update_display
     end
 

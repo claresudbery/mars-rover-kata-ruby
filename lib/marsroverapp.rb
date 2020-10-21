@@ -53,17 +53,17 @@ class MarsRoverApp
         rover_name = instructions[0]
         instructions.shift # removes first element
         instructions.each do |movement|   
-            process_movement(movement, rover_name)
+            process_movement(movement, @mars_rovers[rover_name], @grid)
         end
     end
 
-    def process_movement(movement, rover_name)    
+    def process_movement(movement, rover, grid)    
         if is_turn?(movement)       
-            @mars_rovers[rover_name].turn(movement)
+            rover.turn(movement)
         else
-            @mars_rovers[rover_name].move(movement, @grid)
+            rover.move(movement, grid)
         end
-        @grid.update(@mars_rovers[rover_name])
+        grid.update(rover)
         update_display
     end
 
