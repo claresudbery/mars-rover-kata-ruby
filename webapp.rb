@@ -5,6 +5,7 @@ require_relative 'lib/presenters/wide_screen_presenter'
 require_relative 'lib/grid'
 require_relative 'lib/marsroverapp'
 require_relative 'lib/rovers/mars_rover_factory'
+require_relative 'lib/app_helper.rb'
 
 class WebApp < Sinatra::Base
     enable :sessions
@@ -33,16 +34,12 @@ class WebApp < Sinatra::Base
     private
 
     def handle_exceptions 
-        begin
+        error = AppHelper.handle_mars_rover_exceptions do
             yield
-        rescue BadInputException => e            
-            show_error(MarsRoverApp::BAD_INPUT_ERROR)
-        rescue SkyHighObstacleException => e
-            show_error(MarsRoverApp::SKY_HIGH_OBSTACLE_ERROR)
-        rescue ObstacleException => e
-            show_error(MarsRoverApp::OBSTACLE_ERROR)
-        rescue StandardError => e
-            show_error(e.message)
+        end
+
+        if !error.empty?
+            show_error(error)
         end
     end
 

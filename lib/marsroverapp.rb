@@ -22,26 +22,27 @@ class MarsRoverApp
     end
 
     def start
-        begin
+        handle_exceptions do
             @presenter.show_display(@grid)
             @communicator.show_message(USER_INFORMATION)
             new_rover = convert_first_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
             start_rover(new_rover)
             move_rover_repeatedly
-        rescue BadInputException => e            
-            puts BAD_INPUT_ERROR
-        rescue SkyHighObstacleException => e
-            puts SKY_HIGH_OBSTACLE_ERROR
-            move_rover_repeatedly
-        rescue ObstacleException => e
-            puts OBSTACLE_ERROR
-            move_rover_repeatedly
-        rescue StandardError => e
-            puts e.message
         end
     end
 
     private
+
+    def handle_exceptions 
+        error = AppHelper.handle_mars_rover_exceptions do
+            yield
+        end
+
+        if !error.empty?
+            puts error
+            move_rover_repeatedly
+        end
+    end
 
     def convert_first_input(new_rover)
         new_rover = new_rover.split(',')
