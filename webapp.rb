@@ -18,8 +18,8 @@ class WebApp < Sinatra::Base
 
     post '/marsrover' do
         update_grid
-        new_rover = convert_first_input(params["instructions"])
-        start_rover(new_rover)
+        instructions = params["instructions"]
+        process_instructions(instructions)
 
         erb :marsrover
     end
@@ -38,6 +38,7 @@ class WebApp < Sinatra::Base
     def update_grid
         if session[:grid] == nil            
             session[:grid] = create_grid
+            session[:mars_rovers] = Hash.new
         end
     end
 
@@ -53,11 +54,47 @@ class WebApp < Sinatra::Base
         new_rover
     end
 
+    def process_instructions(instructions)
+        if is_movement?(instructions)
+            move_rover(instructions)
+        else
+            start_rover(convert_first_input(instructions))
+        end
+    end
+
     def start_rover(new_rover)
         rover = MarsRoverFactory.new.generate_rover(new_rover[:name], new_rover[:type])
-        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], session[:grid])        
+        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], session[:grid])  
+        session[:mars_rovers][new_rover[:name]] = rover      
         session[:grid].update(rover)
         update_display
+    end
+
+    def move_rover(instructions)  
+        instructions = instructions.split(",")
+        rover_name = instructions[0]
+        instructions.shift # removes first element
+        instructions.each do |movement|   
+            process_movement(movement, rover_name)
+        end
+    end
+
+    def process_movement(movement, rover_name)    
+        if is_turn?(movement)       
+            session[:mars_rovers][rover_name].turn(movement)
+        else
+            session[:mars_rovers][rover_name].move(movement, session[:grid])
+        end
+        session[:grid].update(session[:mars_rovers][rover_name])
+        update_display
+    end
+
+    def is_turn?(movement)
+        MarsRoverApp::TURNS.include?(movement)
+    end
+
+    def is_movement?(movement)
+        MarsRoverApp::MOVEMENTS.include?(movement[movement.length-1])
     end
 
     def update_display

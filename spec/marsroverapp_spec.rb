@@ -236,30 +236,7 @@ class MarsRoverAppTests
                 initial_input = GridConstants::NEW_ROVER
                 expected_move_input = "ANN,r"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                grid_with_east_facing_rover = 
-                <<~HEREDOC
-                -------------------------------
-                | 360 |     |     |     |     |
-                | >>> |     |     |     |     |
-                | ANN |     |     |     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                |     |     |     | X X |     |
-                |     |     |     |  X  |     |
-                |     |     |     | X X |     |
-                -------------------------------
-                |     |     | SKY |     |     |
-                |     |     |  X  |     |     |
-                |     |     | HIGH|     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                HEREDOC
+                grid_with_east_facing_rover = GridConstants::GRID_WITH_EAST_FACING_ROVER
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_including(grid_with_east_facing_rover)).to_stdout
@@ -439,63 +416,16 @@ class MarsRoverAppTests
                 # Arrange
                 initial_input = GridConstants::NEW_ROVER
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,f", "ANN,f", "ANN,f", "ANN,l", "ANN,b", "") 
-                expected_grid = 
-                <<~HEREDOC
-                -------------------------------
-                |     |     |     | 360 |     |
-                |     |     |     | ^^^ |     |
-                |     |     |     | ANN |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                |     |     |     | X X |     |
-                |     |     |     |  X  |     |
-                |     |     |     | X X |     |
-                -------------------------------
-                |     |     | SKY |     |     |
-                |     |     |  X  |     |     |
-                |     |     | HIGH|     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                HEREDOC
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including(GridConstants::GRID_WITH_NORTH_FACING_ROVER_AT_0_3)).to_stdout
             end
             
             it "responds to several movements in one input" do
                 # Arrange
                 initial_input = GridConstants::NEW_ROVER
-                allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,b,r,f,f,l,b,r", "") 
-                expected_grid = 
-                <<~HEREDOC
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                |     |     | 360 | X X |     |
-                |     |     | >>> |  X  |     |
-                |     |     | ANN | X X |     |
-                -------------------------------
-                |     |     | SKY |     |     |
-                |     |     |  X  |     |     |
-                |     |     | HIGH|     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                HEREDOC
+                allow(@communicator).to receive(:gets).and_return(initial_input, GridConstants::REPEATED_MOVEMENTS, "") 
+                expected_grid = GridConstants::GRID_WITH_EAST_FACING_ROVER_AT_2_2
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_including(expected_grid)).to_stdout

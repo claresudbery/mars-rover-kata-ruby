@@ -28,8 +28,8 @@ RSpec.describe 'The Mars Rover web app' do
     context "displaying grid" do
         it "remembers grid from previous posts even after multiple GET requests" do   
             # Arrange
-            some_input = GridConstants::NEW_ROVER
-            post "/marsrover", :instructions => some_input
+            new_rover = GridConstants::NEW_ROVER
+            post "/marsrover", :instructions => new_rover
             get '/marsrover'
             
             # Act
@@ -39,17 +39,28 @@ RSpec.describe 'The Mars Rover web app' do
             expect(last_response.body).to include(GridConstants::GRID_WITH_NEW_ROVER)
         end
         
-        it "updates grid in response to user input" do   
+        it "adds new rover in response to user input" do   
             # Arrange
-            some_input = GridConstants::NEW_ROVER
-            post "/marsrover", :instructions => some_input
-            get '/marsrover'
+            new_rover = GridConstants::NEW_ROVER
             
             # Act
-            get '/marsrover'
+            post "/marsrover", :instructions => new_rover
             
             # Assert
             expect(last_response.body).to include(GridConstants::GRID_WITH_NEW_ROVER)
+        end
+        
+        it "moves rover in response to user input" do   
+            # Arrange
+            new_rover = GridConstants::NEW_ROVER
+            move_rover = GridConstants::REPEATED_MOVEMENTS
+            post "/marsrover", :instructions => new_rover
+            
+            # Act
+            post "/marsrover", :instructions => move_rover
+            
+            # Assert
+            expect(last_response.body).to include(GridConstants::GRID_WITH_EAST_FACING_ROVER_AT_2_2)
         end
     end
 end
