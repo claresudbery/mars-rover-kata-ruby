@@ -62,7 +62,6 @@ class WebApp < Sinatra::Base
         rover = mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
         rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], grid)
         grid.update(rover)
-        update_display
         mars_rovers[new_rover[:name]] = rover
     end
 
@@ -82,7 +81,6 @@ class WebApp < Sinatra::Base
             rover.move(movement, grid)
         end
         grid.update(rover)
-        update_display
     end
 
     def show_error(error)
@@ -102,6 +100,7 @@ class WebApp < Sinatra::Base
         else
             start_rover(instructions, session[:mars_rovers], session[:grid], MarsRoverFactory.new)
         end
+        update_display
     end
 
     def is_turn?(movement)

@@ -18,6 +18,7 @@ class MarsRoverApp
             @communicator.show_message(AppHelper::USER_INFORMATION)
             instructions = @communicator.get_input(AppHelper::REQUEST_FOR_FIRST_INPUT)
             start_rover(instructions, @mars_rovers, @grid, @mars_rover_factory)
+            update_display
             move_rover_repeatedly
         end
     end
@@ -64,7 +65,6 @@ class MarsRoverApp
             rover.move(movement, grid)
         end
         grid.update(rover)
-        update_display
     end
 
     def start_rover(instructions, mars_rovers, grid, mars_rover_factory)
@@ -72,7 +72,6 @@ class MarsRoverApp
         rover = mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
         rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], grid)
         grid.update(rover)
-        update_display
         mars_rovers[new_rover[:name]] = rover
     end
 
@@ -86,6 +85,7 @@ class MarsRoverApp
         else
             start_rover(instructions, @mars_rovers, @grid, @mars_rover_factory)
         end
+        update_display
     end
 
     def is_turn?(movement)
