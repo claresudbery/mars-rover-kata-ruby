@@ -3,6 +3,7 @@ require_relative '../lib/communicator'
 require_relative '../lib/grid'
 require_relative '../lib/rovers/mars_rover_factory'
 require_relative '../lib/marsroverapp'
+require_relative 'helpers/grid_constants'
 
 class MarsRoverAppTests
     OBSTACLE_X = 3
@@ -51,35 +52,11 @@ class MarsRoverAppTests
 
             it "displays an empty 5x5 grid containing obstacles on startup" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"         
-                empty_grid_with_obstacles = 
-                <<~HEREDOC
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                |     |     |     | X X |     |
-                |     |     |     |  X  |     |
-                |     |     |     | X X |     |
-                -------------------------------
-                |     |     | SKY |     |     |
-                |     |     |  X  |     |     |
-                |     |     | HIGH|     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                HEREDOC
+                initial_input = "ANN,360,0,0,N" 
                 allow(@communicator).to receive(:gets).and_return(initial_input, "")
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_starting_with(empty_grid_with_obstacles)).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_starting_with(GridConstants::EMPTY_GRID_WITH_OBSTACLES)).to_stdout
             end
 
             it "prompts the user to input coordinates and direction on startup" do
