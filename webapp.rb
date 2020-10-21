@@ -57,14 +57,6 @@ class WebApp < Sinatra::Base
         end
     end
 
-    def process_instructions(instructions)
-        if is_movement?(instructions)
-            move_rover(instructions)
-        else
-            start_rover(AppHelper::convert_first_input(instructions))
-        end
-    end
-
     def start_rover(new_rover)
         rover = MarsRoverFactory.new.generate_rover(new_rover[:name], new_rover[:type])
         rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], session[:grid])  
@@ -92,14 +84,6 @@ class WebApp < Sinatra::Base
         update_display
     end
 
-    def is_turn?(movement)
-        AppHelper::TURNS.include?(movement)
-    end
-
-    def is_movement?(movement)
-        AppHelper::MOVEMENTS.include?(movement[movement.length-1])
-    end
-
     def show_error(error)
         @output = update_display + error + "\n\n"
     end
@@ -109,5 +93,21 @@ class WebApp < Sinatra::Base
         @output = @output + AppHelper::USER_INFORMATION + "\n\n"
         @output = @output + AppHelper::REQUEST_FOR_FURTHER_INPUT + "\n\n"
         @output
+    end
+
+    def process_instructions(instructions)
+        if is_movement?(instructions)
+            move_rover(instructions)
+        else
+            start_rover(AppHelper::convert_first_input(instructions))
+        end
+    end
+
+    def is_turn?(movement)
+        AppHelper::TURNS.include?(movement)
+    end
+
+    def is_movement?(movement)
+        AppHelper::MOVEMENTS.include?(movement[movement.length-1])
     end
 end

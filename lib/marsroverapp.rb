@@ -48,14 +48,6 @@ class MarsRoverApp
         instructions = @communicator.get_input(AppHelper::REQUEST_FOR_FURTHER_INPUT)
     end
 
-    def process_instructions(instructions)
-        if is_movement?(instructions)
-            move_rover(instructions)
-        else
-            start_rover(AppHelper::convert_first_input(instructions))
-        end
-    end
-
     def move_rover(instructions)  
         instructions = instructions.split(",")
         rover_name = instructions[0]
@@ -71,7 +63,28 @@ class MarsRoverApp
         else
             @mars_rovers[rover_name].move(movement, @grid)
         end
-        update_display(@mars_rovers[rover_name])
+        @grid.update(@mars_rovers[rover_name])
+        update_display
+    end
+
+    def start_rover(new_rover)
+        rover = @mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
+        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], @grid)
+        @grid.update(rover)
+        update_display
+        @mars_rovers[new_rover[:name]] = rover
+    end
+
+    def update_display
+        @presenter.show_display(@grid)
+    end
+
+    def process_instructions(instructions)
+        if is_movement?(instructions)
+            move_rover(instructions)
+        else
+            start_rover(AppHelper::convert_first_input(instructions))
+        end
     end
 
     def is_turn?(movement)
@@ -80,17 +93,5 @@ class MarsRoverApp
 
     def is_movement?(movement)
         AppHelper::MOVEMENTS.include?(movement[movement.length-1])
-    end
-
-    def start_rover(new_rover)
-        rover = @mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
-        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], @grid)
-        update_display(rover)
-        @mars_rovers[new_rover[:name]] = rover
-    end
-
-    def update_display(rover)
-        @grid.update(rover)
-        @presenter.show_display(@grid)
     end
 end
