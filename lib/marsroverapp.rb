@@ -39,7 +39,9 @@ class MarsRoverApp
     def move_rover_repeatedly
         instructions = ask_for_further_input
         while !instructions.empty? do
-            process_instructions(instructions, @mars_rovers, @grid, @mars_rover_factory)
+            process_instructions(instructions, @mars_rovers, @grid, @mars_rover_factory) do
+                update_display
+            end
             instructions = ask_for_further_input
         end
     end
@@ -85,7 +87,7 @@ class MarsRoverApp
         else
             start_rover(instructions, rovers, grid, rover_factory)
         end
-        update_display
+        yield
     end
 
     def is_turn?(movement)
