@@ -57,12 +57,13 @@ class WebApp < Sinatra::Base
         end
     end
 
-    def start_rover(new_rover)
-        rover = MarsRoverFactory.new.generate_rover(new_rover[:name], new_rover[:type])
-        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], session[:grid])  
-        session[:mars_rovers][new_rover[:name]] = rover      
-        session[:grid].update(rover)
+    def start_rover(instructions, mars_rovers, grid, mars_rover_factory)
+        new_rover = AppHelper::convert_first_input(instructions) 
+        rover = mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
+        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], grid)
+        grid.update(rover)
         update_display
+        mars_rovers[new_rover[:name]] = rover
     end
 
     def move_rover(instructions)  
@@ -99,7 +100,7 @@ class WebApp < Sinatra::Base
         if is_movement?(instructions)
             move_rover(instructions)
         else
-            start_rover(AppHelper::convert_first_input(instructions))
+            start_rover(instructions, session[:mars_rovers], session[:grid], MarsRoverFactory.new)
         end
     end
 

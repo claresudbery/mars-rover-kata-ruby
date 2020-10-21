@@ -38,4 +38,20 @@ class AppHelper
         }
         new_rover
     end
+
+    def self.process_instructions(instructions)
+        if is_movement?(instructions)
+            move_rover(instructions)
+        else
+            start_rover(AppHelper::convert_first_input(instructions))
+        end
+    end
+
+    def self.is_turn?(movement)
+        AppHelper::TURNS.include?(movement)
+    end
+
+    def self.is_movement?(movement)
+        AppHelper::MOVEMENTS.include?(movement[movement.length-1])
+    end
 end

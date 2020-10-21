@@ -16,8 +16,8 @@ class MarsRoverApp
         handle_exceptions do
             @presenter.show_display(@grid)
             @communicator.show_message(AppHelper::USER_INFORMATION)
-            new_rover = AppHelper::convert_first_input(@communicator.get_input(AppHelper::REQUEST_FOR_FIRST_INPUT))
-            start_rover(new_rover)
+            instructions = @communicator.get_input(AppHelper::REQUEST_FOR_FIRST_INPUT)
+            start_rover(instructions, @mars_rovers, @grid, @mars_rover_factory)
             move_rover_repeatedly
         end
     end
@@ -67,12 +67,13 @@ class MarsRoverApp
         update_display
     end
 
-    def start_rover(new_rover)
-        rover = @mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
-        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], @grid)
-        @grid.update(rover)
+    def start_rover(instructions, mars_rovers, grid, mars_rover_factory)
+        new_rover = AppHelper::convert_first_input(instructions) 
+        rover = mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
+        rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], grid)
+        grid.update(rover)
         update_display
-        @mars_rovers[new_rover[:name]] = rover
+        mars_rovers[new_rover[:name]] = rover
     end
 
     def update_display
@@ -83,7 +84,7 @@ class MarsRoverApp
         if is_movement?(instructions)
             move_rover(instructions)
         else
-            start_rover(AppHelper::convert_first_input(instructions))
+            start_rover(instructions, @mars_rovers, @grid, @mars_rover_factory)
         end
     end
 
