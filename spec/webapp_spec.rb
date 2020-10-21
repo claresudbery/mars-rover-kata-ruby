@@ -62,5 +62,18 @@ RSpec.describe 'The Mars Rover web app' do
             # Assert
             expect(last_response.body).to include(GridConstants::GRID_WITH_EAST_FACING_ROVER_AT_2_2)
         end
+        
+        it "displays error when rover hits obstacle" do   
+            # Arrange
+            new_rover = GridConstants::NEW_ROVER
+            move_rover = GridConstants::MOVEMENTS_FROM_NEW_ROVER_TO_OBSTACLE
+            post "/marsrover", :instructions => new_rover
+            
+            # Act
+            post "/marsrover", :instructions => move_rover
+            
+            # Assert
+            expect(last_response.body).to include(MarsRoverApp::OBSTACLE_ERROR)
+        end
     end
 end

@@ -10,16 +10,36 @@ class WebApp < Sinatra::Base
     enable :sessions
 
     get '/marsrover' do
-        update_grid
-        update_display
+        begin
+            update_grid
+            update_display
+        rescue BadInputException => e            
+            show_error(MarsRoverApp::BAD_INPUT_ERROR)
+        rescue SkyHighObstacleException => e
+            show_error(MarsRoverApp::SKY_HIGH_OBSTACLE_ERROR)
+        rescue ObstacleException => e
+            show_error(MarsRoverApp::OBSTACLE_ERROR)
+        rescue StandardError => e
+            show_error(e.message)
+        end
 
         erb :marsrover
     end    
 
     post '/marsrover' do
-        update_grid
-        instructions = params["instructions"]
-        process_instructions(instructions)
+        begin
+            update_grid
+            instructions = params["instructions"]
+            process_instructions(instructions)
+        rescue BadInputException => e            
+            show_error(MarsRoverApp::BAD_INPUT_ERROR)
+        rescue SkyHighObstacleException => e
+            show_error(MarsRoverApp::SKY_HIGH_OBSTACLE_ERROR)
+        rescue ObstacleException => e
+            show_error(MarsRoverApp::OBSTACLE_ERROR)
+        rescue StandardError => e
+            show_error(e.message)
+        end
 
         erb :marsrover
     end
@@ -97,9 +117,14 @@ class WebApp < Sinatra::Base
         MarsRoverApp::MOVEMENTS.include?(movement[movement.length-1])
     end
 
+    def show_error(error)
+        @output = update_display + error + "\n\n"
+    end
+
     def update_display
         @output = WideScreenPresenter.new.get_display(session[:grid]) + "\n"
-        @output = @output + MarsRoverApp::USER_INFORMATION
-        @output = "#{@output}\n\n#{MarsRoverApp::REQUEST_FOR_FURTHER_INPUT}\n\n"
+        @output = @output + MarsRoverApp::USER_INFORMATION + "\n\n"
+        @output = @output + MarsRoverApp::REQUEST_FOR_FURTHER_INPUT + "\n\n"
+        @output
     end
 end

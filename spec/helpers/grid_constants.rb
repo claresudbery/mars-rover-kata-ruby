@@ -25,6 +25,7 @@ class GridConstants
         HEREDOC
 
     NEW_ROVER = "ANN,360,0,0,N"  
+    MOVEMENTS_FROM_NEW_ROVER_TO_OBSTACLE = "ANN,r,f,f,f,r,f,f"
     GRID_WITH_NEW_ROVER =  
         <<~HEREDOC
         -------------------------------
