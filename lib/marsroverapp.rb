@@ -16,7 +16,7 @@ class MarsRoverApp
         handle_exceptions do
             @presenter.show_display(@grid)
             @communicator.show_message(AppHelper::USER_INFORMATION)
-            new_rover = convert_first_input(@communicator.get_input(AppHelper::REQUEST_FOR_FIRST_INPUT))
+            new_rover = AppHelper::convert_first_input(@communicator.get_input(AppHelper::REQUEST_FOR_FIRST_INPUT))
             start_rover(new_rover)
             move_rover_repeatedly
         end
@@ -33,18 +33,6 @@ class MarsRoverApp
             puts error
             move_rover_repeatedly
         end
-    end
-
-    def convert_first_input(new_rover)
-        new_rover = new_rover.split(',')
-        new_rover = {
-            name: new_rover[0],
-            type: new_rover[1],           
-            x: new_rover[2].to_i,
-            y: new_rover[3].to_i,
-            direction: new_rover[4]
-        }
-        new_rover
     end
 
     def move_rover_repeatedly
@@ -64,7 +52,7 @@ class MarsRoverApp
         if is_movement?(instructions)
             move_rover(instructions)
         else
-            start_rover(convert_first_input(instructions))
+            start_rover(AppHelper::convert_first_input(instructions))
         end
     end
 
