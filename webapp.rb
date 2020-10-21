@@ -105,11 +105,11 @@ class WebApp < Sinatra::Base
     end
 
     def is_turn?(movement)
-        MarsRoverApp::TURNS.include?(movement)
+        AppHelper::TURNS.include?(movement)
     end
 
     def is_movement?(movement)
-        MarsRoverApp::MOVEMENTS.include?(movement[movement.length-1])
+        AppHelper::MOVEMENTS.include?(movement[movement.length-1])
     end
 
     def show_error(error)
@@ -118,8 +118,8 @@ class WebApp < Sinatra::Base
 
     def update_display
         @output = WideScreenPresenter.new.get_display(session[:grid]) + "\n"
-        @output = @output + MarsRoverApp::USER_INFORMATION + "\n\n"
-        @output = @output + MarsRoverApp::REQUEST_FOR_FURTHER_INPUT + "\n\n"
+        @output = @output + AppHelper::USER_INFORMATION + "\n\n"
+        @output = @output + AppHelper::REQUEST_FOR_FURTHER_INPUT + "\n\n"
         @output
     end
 end

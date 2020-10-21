@@ -1,18 +1,9 @@
 require_relative 'exceptions/bad_input_exception'
 require_relative 'exceptions/obstacle_exception'
 require_relative 'exceptions/sky_high_obstacle_exception'
+require_relative 'app_helper'
 
 class MarsRoverApp
-    USER_INFORMATION_ALL_ROVERS = "There are three types of Rover: Straight-line rover = 'SLR', Rover360 = '360', FlyingRover = 'FLY'"
-    USER_INFORMATION = "You may have heard rumours of flying rovers and straight-line rovers, but these are still under construction. For now we only have Rover360s. When creating a new rover, use '360' for type."
-    REQUEST_FOR_FIRST_INPUT = "Please input a 3-letter name, type, start coordinates and a direction for your Rover - eg ANN,360,0,0,N"
-    REQUEST_FOR_FURTHER_INPUT = "Please input, comma-separated, either rover name followed by a sequence of the following single chars: f(forwards), b(backwards), l(left), r(right) - eg 'ANN,r,f,f' ... or a 3-letter name, start coordinates, type and a direction for a new Rover - eg 'MIN,360,0,0,N'"
-    BAD_INPUT_ERROR = "Sorry, I don't understand that input."
-    OBSTACLE_ERROR = "Oh no, I'm sorry, I can't process that instruction. There is an obstacle in the way!"
-    SKY_HIGH_OBSTACLE_ERROR = "Oh no, I'm sorry, I can't process that instruction. There is a sky-high obstacle in the way!"
-    MOVEMENTS = [StraightLineRover::LEFT, StraightLineRover::RIGHT, StraightLineRover::FORWARD, StraightLineRover::BACKWARD]
-    TURNS = [StraightLineRover::LEFT, StraightLineRover::RIGHT]
-
     def initialize(presenter, communicator, grid, mars_rover_factory)
         @presenter = presenter
         @communicator = communicator
@@ -24,8 +15,8 @@ class MarsRoverApp
     def start
         handle_exceptions do
             @presenter.show_display(@grid)
-            @communicator.show_message(USER_INFORMATION)
-            new_rover = convert_first_input(@communicator.get_input(REQUEST_FOR_FIRST_INPUT))
+            @communicator.show_message(AppHelper::USER_INFORMATION)
+            new_rover = convert_first_input(@communicator.get_input(AppHelper::REQUEST_FOR_FIRST_INPUT))
             start_rover(new_rover)
             move_rover_repeatedly
         end
@@ -65,8 +56,8 @@ class MarsRoverApp
     end
 
     def ask_for_further_input
-        @communicator.show_message(USER_INFORMATION)
-        instructions = @communicator.get_input(REQUEST_FOR_FURTHER_INPUT)
+        @communicator.show_message(AppHelper::USER_INFORMATION)
+        instructions = @communicator.get_input(AppHelper::REQUEST_FOR_FURTHER_INPUT)
     end
 
     def process_instructions(instructions)
@@ -96,11 +87,11 @@ class MarsRoverApp
     end
 
     def is_turn?(movement)
-        TURNS.include?(movement)
+        AppHelper::TURNS.include?(movement)
     end
 
     def is_movement?(movement)
-        MOVEMENTS.include?(movement[movement.length-1])
+        AppHelper::MOVEMENTS.include?(movement[movement.length-1])
     end
 
     def start_rover(new_rover)

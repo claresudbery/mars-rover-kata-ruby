@@ -62,7 +62,7 @@ class MarsRoverAppTests
             it "prompts the user to input coordinates and direction on startup" do
                 # Arrange
                 initial_input = GridConstants::NEW_ROVER
-                expected_prompt = MarsRoverApp::REQUEST_FOR_FIRST_INPUT
+                expected_prompt = AppHelper::REQUEST_FOR_FIRST_INPUT
                 allow(@communicator).to receive(:gets).and_return(initial_input, "")
 
                 # Act/Assert
@@ -77,7 +77,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return("!") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{AppHelper::BAD_INPUT_ERROR}\n")).to_stdout
             end
         
             xit "shows an error when the first movement input is invalid" do
@@ -87,7 +87,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, bad_input, "")
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{AppHelper::BAD_INPUT_ERROR}\n")).to_stdout
             end
         
             xit "shows an error when a later movement input is invalid" do
@@ -97,7 +97,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,l", bad_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{AppHelper::BAD_INPUT_ERROR}\n")).to_stdout
             end
         
             xit "shows an error when a later new-rover input is invalid" do
@@ -107,7 +107,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,l", bad_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{MarsRoverApp::BAD_INPUT_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{AppHelper::BAD_INPUT_ERROR}\n")).to_stdout
             end
         end
 
@@ -174,14 +174,14 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(expected_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{AppHelper::OBSTACLE_ERROR}\n")).to_stdout
             end
             
             it "asks for new input if the start position is invalid because an obstacle is in the way" do
                 # Arrange
                 expected_input = "ANN,360,#{OBSTACLE_X},#{OBSTACLE_Y},N"
                 allow(@communicator).to receive(:gets).and_return(expected_input, "") 
-                expected_prompt = MarsRoverApp::REQUEST_FOR_FURTHER_INPUT
+                expected_prompt = AppHelper::REQUEST_FOR_FURTHER_INPUT
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_ending_with("#{expected_prompt}\n")).to_stdout
@@ -191,7 +191,7 @@ class MarsRoverAppTests
                 # Arrange
                 expected_input = GridConstants::NEW_ROVER
                 allow(@communicator).to receive(:gets).and_return(expected_input, "") 
-                expected_prompt = MarsRoverApp::REQUEST_FOR_FURTHER_INPUT
+                expected_prompt = AppHelper::REQUEST_FOR_FURTHER_INPUT
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_ending_with("#{expected_prompt}\n")).to_stdout
@@ -318,7 +318,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{AppHelper::OBSTACLE_ERROR}\n")).to_stdout
             end
             
             it "shows an error when the rover can't move backwards because there is an obstacle in the way" do
@@ -329,7 +329,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including("#{MarsRoverApp::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{AppHelper::OBSTACLE_ERROR}\n")).to_stdout
             end
             
             it "asks for new input if a movement is invalid because an obstacle is in the way" do
@@ -338,7 +338,7 @@ class MarsRoverAppTests
                 expected_move_input = "ANN,f"
                 @grid.add_obstacle(0,4)
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
-                expected_prompt = MarsRoverApp::REQUEST_FOR_FURTHER_INPUT
+                expected_prompt = AppHelper::REQUEST_FOR_FURTHER_INPUT
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_ending_with("#{expected_prompt}\n")).to_stdout

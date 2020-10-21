@@ -3,6 +3,7 @@ ENV['APP_ENV'] = 'test'
 require "helpers/spec_helper"
 require_relative 'helpers/grid_constants'
 
+require_relative '../lib/app_helper'
 require_relative '../webapp'
 require 'rspec'
 require 'rack/test'
@@ -73,7 +74,7 @@ RSpec.describe 'The Mars Rover web app' do
             post "/marsrover", :instructions => move_rover
             
             # Assert
-            expect(last_response.body).to include(MarsRoverApp::OBSTACLE_ERROR)
+            expect(last_response.body).to include(AppHelper::OBSTACLE_ERROR)
         end
     end
 end
