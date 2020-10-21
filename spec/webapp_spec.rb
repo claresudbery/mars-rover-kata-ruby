@@ -52,5 +52,18 @@ RSpec.describe 'The Mars Rover web app' do
             # Assert
             expect(last_response.body).to have_tag('pre', :text => /"#{GridConstants::EMPTY_GRID_WITH_OBSTACLES}"/)
         end
+        
+        it "updates grid in response to user input" do   
+            # Arrange
+            some_input = "ANN,360,0,0,N"
+            post "/marsrover", :instructions => some_input
+            get '/marsrover'
+            
+            # Act
+            get '/marsrover'
+            
+            # Assert
+            expect(last_response.body).to have_tag('pre', :text => /"#{GridConstants::GRID_WITH_NEW_ROVER}"/)
+        end
     end
 end

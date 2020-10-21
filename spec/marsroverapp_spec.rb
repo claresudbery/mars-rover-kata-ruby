@@ -31,7 +31,7 @@ class MarsRoverAppTests
                 grid = Grid.new(3, 2)
                 mars_rover_factory = MarsRoverFactory.new
                 mars_rover_app = MarsRoverApp.new(presenter, communicator, grid, mars_rover_factory)
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 empty_grid = 
                 <<~HEREDOC
                 -------------------
@@ -52,7 +52,7 @@ class MarsRoverAppTests
 
             it "displays an empty 5x5 grid containing obstacles on startup" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N" 
+                initial_input = GridConstants::NEW_ROVER 
                 allow(@communicator).to receive(:gets).and_return(initial_input, "")
 
                 # Act/Assert
@@ -61,7 +61,7 @@ class MarsRoverAppTests
 
             it "prompts the user to input coordinates and direction on startup" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 expected_prompt = MarsRoverApp::REQUEST_FOR_FIRST_INPUT
                 allow(@communicator).to receive(:gets).and_return(initial_input, "")
 
@@ -82,7 +82,7 @@ class MarsRoverAppTests
         
             xit "shows an error when the first movement input is invalid" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 bad_input = "ANN,x"
                 allow(@communicator).to receive(:gets).and_return(initial_input, bad_input, "")
 
@@ -92,7 +92,7 @@ class MarsRoverAppTests
         
             xit "shows an error when a later movement input is invalid" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 bad_input = "MAX,b"
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,l", bad_input, "") 
 
@@ -102,7 +102,7 @@ class MarsRoverAppTests
         
             xit "shows an error when a later new-rover input is invalid" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 bad_input = "MAX,360,0,0,X"
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,l", bad_input, "") 
 
@@ -123,7 +123,7 @@ class MarsRoverAppTests
                 allow(communicator_stub).to receive(:show_message) 
                 fake_presenter = double('Presenter')
                 allow(fake_presenter).to receive(:show_display).with(grid_stub) {puts grid_with_new_rover}
-                expected_input = "ANN,360,0,0,N"
+                expected_input = GridConstants::NEW_ROVER
                 allow(communicator_stub).to receive(:get_input).and_return(expected_input, "") 
                 mars_rover_app = MarsRoverApp.new(fake_presenter, communicator_stub, grid_stub, rover_factory_stub)
 
@@ -145,7 +145,7 @@ class MarsRoverAppTests
                 allow(communicator_stub).to receive(:show_message) 
                 presenter_spy = spy('Presenter')
                 allow(presenter_spy).to receive(:show_display).with(grid_spy) {puts grid_with_new_rover}
-                expected_input = "ANN,360,0,0,N"
+                expected_input = GridConstants::NEW_ROVER
                 allow(communicator_stub).to receive(:get_input).and_return(expected_input, "") 
                 mars_rover_app = MarsRoverApp.new(presenter_spy, communicator_stub, grid_spy, rover_factory_fake)
 
@@ -160,32 +160,9 @@ class MarsRoverAppTests
         context "when moving (proper end to end test)" do
             it "displays the position of a Rover when given position" do
                 # Arrange
-                expected_input = "ANN,360,0,0,N"
+                expected_input = GridConstants::NEW_ROVER
                 allow(@communicator).to receive(:gets).and_return(expected_input, "") 
-                grid_with_new_rover = 
-                <<~HEREDOC
-                -------------------------------
-                | 360 |     |     |     |     |
-                | ^^^ |     |     |     |     |
-                | ANN |     |     |     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                |     |     |     | X X |     |
-                |     |     |     |  X  |     |
-                |     |     |     | X X |     |
-                -------------------------------
-                |     |     | SKY |     |     |
-                |     |     |  X  |     |     |
-                |     |     | HIGH|     |     |
-                -------------------------------
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                |     |     |     |     |     |
-                -------------------------------
-                HEREDOC
+                grid_with_new_rover = GridConstants::GRID_WITH_NEW_ROVER
 
                 # Act/Assert
                 expect{@mars_rover_app.start}.to output(a_string_including(grid_with_new_rover)).to_stdout
@@ -212,7 +189,7 @@ class MarsRoverAppTests
 
             it "prompts the user to input movement or new direction after first input" do
                 # Arrange
-                expected_input = "ANN,360,0,0,N"
+                expected_input = GridConstants::NEW_ROVER
                 allow(@communicator).to receive(:gets).and_return(expected_input, "") 
                 expected_prompt = MarsRoverApp::REQUEST_FOR_FURTHER_INPUT
 
@@ -222,7 +199,7 @@ class MarsRoverAppTests
             
             it "updates the direction of a Rover when it turns left" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 expected_move_input = "ANN,l"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
                 grid_with_west_facing_rover = 
@@ -256,7 +233,7 @@ class MarsRoverAppTests
             
             it "updates the direction of a Rover when it turns right" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 expected_move_input = "ANN,r"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
                 grid_with_east_facing_rover = 
@@ -324,7 +301,7 @@ class MarsRoverAppTests
             
             it "updates the position of a Rover when it moves backwards" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 expected_move_input = "ANN,b"
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
                 expected_grid = 
@@ -358,7 +335,7 @@ class MarsRoverAppTests
             
             it "shows an error when the rover can't move forward because there is an obstacle in the way" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 expected_move_input = "ANN,f"
                 @grid.add_obstacle(0,4)
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
@@ -380,7 +357,7 @@ class MarsRoverAppTests
             
             it "asks for new input if a movement is invalid because an obstacle is in the way" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 expected_move_input = "ANN,f"
                 @grid.add_obstacle(0,4)
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
@@ -460,7 +437,7 @@ class MarsRoverAppTests
             
             it "responds to repeated movement inputs" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,f", "ANN,f", "ANN,f", "ANN,l", "ANN,b", "") 
                 expected_grid = 
                 <<~HEREDOC
@@ -493,7 +470,7 @@ class MarsRoverAppTests
             
             it "responds to several movements in one input" do
                 # Arrange
-                initial_input = "ANN,360,0,0,N"
+                initial_input = GridConstants::NEW_ROVER
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,b,r,f,f,l,b,r", "") 
                 expected_grid = 
                 <<~HEREDOC
