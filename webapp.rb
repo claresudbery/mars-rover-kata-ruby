@@ -21,6 +21,11 @@ class WebApp < Sinatra::Base
         @output = @output + MarsRoverApp::REQUEST_FOR_FIRST_INPUT + "\n" + "\n"
 
         erb :marsrover
+    end    
+
+    post '/marsrover' do
+        @output = params["instructions"]
+        erb :marsrover
     end
 
     run! if app_file == $0

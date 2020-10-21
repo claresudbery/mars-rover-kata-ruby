@@ -14,7 +14,7 @@ RSpec.describe 'The Mars Rover web app' do
       WebApp
     end
   
-    context "simple display" do  
+    context "on startup" do  
       it "starts with an empty 5x5 grid" do
         # Act
         get '/marsrover'
@@ -22,6 +22,20 @@ RSpec.describe 'The Mars Rover web app' do
         # Assert
         expect(last_response).to be_ok
         expect(last_response.body).to have_tag('pre', :text => /"#{GridConstants::EMPTY_GRID_WITH_OBSTACLES}"/)
+      end
+    end
+  
+    context "responding to input" do  
+      it "displays user input" do
+        # Arrange
+        some_input = "SOME INPUT"
+
+        # Act
+        post "/marsrover", :instructions => some_input 
+
+        # Assert
+        expect(last_response).to be_ok
+        expect(last_response.body).to have_tag('pre', :text => "#{some_input}")
       end
     end
 end
