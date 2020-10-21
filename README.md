@@ -2,11 +2,19 @@ This is an implementation of the Mars Rover kata: https://learn.madetech.com/kat
 
 ## Running the app
 
-Run `bundle install` first, then run the app like this:
+Run `bundle install` first, then run the app like this (on the command line in the folder for the code):
 
 ```
 ruby app.rb
 ```
+
+For the web app, run the following on the command line: 
+
+```
+rackup -p 4567
+```
+
+...and then visit http://127.0.0.1:4567/marsrover in the browser.
 
 ## Demo Notes
 
