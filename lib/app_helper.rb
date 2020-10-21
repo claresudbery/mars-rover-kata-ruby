@@ -40,7 +40,7 @@ class AppHelper
     end
 
     def self.start_rover(instructions, mars_rovers, grid, mars_rover_factory)
-        new_rover = AppHelper::convert_first_input(instructions) 
+        new_rover = convert_first_input(instructions) 
         rover = mars_rover_factory.generate_rover(new_rover[:name], new_rover[:type])
         rover.start(new_rover[:x], new_rover[:y], new_rover[:direction], grid)
         grid.update(rover)
@@ -75,10 +75,10 @@ class AppHelper
     end
 
     def self.is_turn?(movement)
-        AppHelper::TURNS.include?(movement)
+        TURNS.include?(movement)
     end
 
     def self.is_movement?(movement)
-        AppHelper::MOVEMENTS.include?(movement[movement.length-1])
+        MOVEMENTS.include?(movement[movement.length-1])
     end
 end
