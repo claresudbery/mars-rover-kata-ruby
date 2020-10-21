@@ -10,35 +10,19 @@ class WebApp < Sinatra::Base
     enable :sessions
 
     get '/marsrover' do
-        begin
+        handle_exceptions do
             update_grid
             update_display
-        rescue BadInputException => e            
-            show_error(MarsRoverApp::BAD_INPUT_ERROR)
-        rescue SkyHighObstacleException => e
-            show_error(MarsRoverApp::SKY_HIGH_OBSTACLE_ERROR)
-        rescue ObstacleException => e
-            show_error(MarsRoverApp::OBSTACLE_ERROR)
-        rescue StandardError => e
-            show_error(e.message)
         end
 
         erb :marsrover
     end    
 
     post '/marsrover' do
-        begin
+        handle_exceptions do
             update_grid
             instructions = params["instructions"]
             process_instructions(instructions)
-        rescue BadInputException => e            
-            show_error(MarsRoverApp::BAD_INPUT_ERROR)
-        rescue SkyHighObstacleException => e
-            show_error(MarsRoverApp::SKY_HIGH_OBSTACLE_ERROR)
-        rescue ObstacleException => e
-            show_error(MarsRoverApp::OBSTACLE_ERROR)
-        rescue StandardError => e
-            show_error(e.message)
         end
 
         erb :marsrover
@@ -47,6 +31,20 @@ class WebApp < Sinatra::Base
     run! if app_file == $0
 
     private
+
+    def handle_exceptions 
+        begin
+            yield
+        rescue BadInputException => e            
+            show_error(MarsRoverApp::BAD_INPUT_ERROR)
+        rescue SkyHighObstacleException => e
+            show_error(MarsRoverApp::SKY_HIGH_OBSTACLE_ERROR)
+        rescue ObstacleException => e
+            show_error(MarsRoverApp::OBSTACLE_ERROR)
+        rescue StandardError => e
+            show_error(e.message)
+        end
+    end
 
     def create_grid
         grid = Grid.new(5, 5)
