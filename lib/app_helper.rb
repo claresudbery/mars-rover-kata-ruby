@@ -7,7 +7,6 @@ class AppHelper
     USER_INFORMATION = "You may have heard rumours of flying rovers and straight-line rovers, but these are still under construction. For now we only have Rover360s. When creating a new rover, use '360' for type."
     REQUEST_FOR_FIRST_INPUT = "Please input a 3-letter name, type, start coordinates and a direction for your Rover - eg ANN,360,0,0,N"
     REQUEST_FOR_FURTHER_INPUT = "Please input, comma-separated, either rover name followed by a sequence of the following single chars: f(forwards), b(backwards), l(left), r(right) - eg 'ANN,r,f,f' ... or a 3-letter name, start coordinates, type and a direction for a new Rover - eg 'MIN,360,0,0,N'"
-    BAD_INPUT_ERROR = "Sorry, I don't understand that input."
     MOVEMENTS = [StraightLineRover::LEFT, StraightLineRover::RIGHT, StraightLineRover::FORWARD, StraightLineRover::BACKWARD]
     TURNS = [StraightLineRover::LEFT, StraightLineRover::RIGHT]
 
@@ -17,7 +16,7 @@ class AppHelper
         begin
             yield
         rescue BadInputError => e            
-            error = BAD_INPUT_ERROR
+            error = e.message
         rescue SkyHighObstacleError => e
             error = e.message
         rescue ObstacleError => e

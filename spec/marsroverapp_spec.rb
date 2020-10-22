@@ -77,7 +77,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return("!") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{AppHelper::BAD_INPUT_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{BadInputError::MESSAGE}\n")).to_stdout
             end
         
             xit "shows an error when the first movement input is invalid" do
@@ -87,7 +87,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, bad_input, "")
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{AppHelper::BAD_INPUT_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{BadInputError::MESSAGE}\n")).to_stdout
             end
         
             xit "shows an error when a later movement input is invalid" do
@@ -97,7 +97,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,l", bad_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{AppHelper::BAD_INPUT_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{BadInputError::MESSAGE}\n")).to_stdout
             end
         
             xit "shows an error when a later new-rover input is invalid" do
@@ -107,7 +107,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, "ANN,f", "ANN,r", "ANN,l", bad_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{AppHelper::BAD_INPUT_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_ending_with("#{BadInputError::MESSAGE}\n")).to_stdout
             end
         end
 
