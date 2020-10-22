@@ -15,12 +15,6 @@ class AppHelper
 
         begin
             yield
-        rescue BadInputError => e            
-            error = e.message
-        rescue SkyHighObstacleError => e
-            error = e.message
-        rescue ObstacleError => e
-            error = e.message
         rescue StandardError => e
             error = e.message
         end
