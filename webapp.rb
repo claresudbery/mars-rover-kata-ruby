@@ -23,9 +23,8 @@ class WebApp < Sinatra::Base
         handle_exceptions do
             update_grid
             instructions = params["instructions"]
-            AppHelper::process_instructions(instructions, session[:mars_rovers], session[:grid], MarsRoverFactory.new) do
-                update_display
-            end
+            AppHelper::process_instructions(instructions, session[:mars_rovers], session[:grid], MarsRoverFactory.new)
+            update_display
         end
 
         erb :marsrover

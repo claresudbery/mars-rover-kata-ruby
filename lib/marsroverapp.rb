@@ -39,9 +39,8 @@ class MarsRoverApp
     def move_rover_repeatedly
         instructions = ask_for_further_input
         while !instructions.empty? do
-            AppHelper::process_instructions(instructions, @mars_rovers, @grid, @mars_rover_factory) do
-                update_display
-            end
+            AppHelper::process_instructions(instructions, @mars_rovers, @grid, @mars_rover_factory)
+            update_display
             instructions = ask_for_further_input
         end
     end

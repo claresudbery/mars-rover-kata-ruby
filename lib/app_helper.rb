@@ -71,7 +71,6 @@ class AppHelper
         else
             start_rover(instructions, rovers, grid, rover_factory)
         end
-        yield
     end
 
     def self.is_turn?(movement)
