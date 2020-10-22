@@ -10,18 +10,6 @@ class AppHelper
     MOVEMENTS = [StraightLineRover::LEFT, StraightLineRover::RIGHT, StraightLineRover::FORWARD, StraightLineRover::BACKWARD]
     TURNS = [StraightLineRover::LEFT, StraightLineRover::RIGHT]
 
-    def self.handle_mars_rover_exceptions 
-        error = ""
-
-        begin
-            yield
-        rescue StandardError => e
-            error = e.message
-        end
-
-        error
-    end
-
     def self.convert_first_input(new_rover)
         new_rover = new_rover.split(',')
         new_rover = {

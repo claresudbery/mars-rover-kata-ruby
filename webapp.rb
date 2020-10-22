@@ -35,12 +35,10 @@ class WebApp < Sinatra::Base
     private
 
     def handle_exceptions 
-        error = AppHelper.handle_mars_rover_exceptions do
+        begin
             yield
-        end
-
-        if !error.empty?
-            show_error(error)
+        rescue StandardError => e
+            show_error(e.message)
         end
     end
 

@@ -23,12 +23,10 @@ class MarsRoverApp
     private
 
     def handle_exceptions 
-        error = AppHelper.handle_mars_rover_exceptions do
+        begin
             yield
-        end
-
-        if !error.empty?
-            puts error
+        rescue StandardError => e
+            puts e.message
             move_rover_repeatedly
         end
     end
