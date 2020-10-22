@@ -1,6 +1,3 @@
-require_relative 'exceptions/bad_input_exception'
-require_relative 'exceptions/obstacle_exception'
-require_relative 'exceptions/sky_high_obstacle_exception'
 require_relative 'app_helper'
 
 class MarsRoverApp

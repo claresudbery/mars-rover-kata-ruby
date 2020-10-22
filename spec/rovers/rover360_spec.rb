@@ -126,7 +126,7 @@ describe Rover360 do
                 mars_rover = described_class.new("TST")                
 
                 # Act & Assert
-                expect{mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_fake)}.to raise_error(ObstacleException)
+                expect{mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_fake)}.to raise_error(ObstacleError)
             end
         end
         
@@ -142,7 +142,7 @@ describe Rover360 do
                 mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_fake)
 
                 # Act & Assert
-                expect{mars_rover.move(movement, grid_fake)}.to raise_error(ObstacleException)
+                expect{mars_rover.move(movement, grid_fake)}.to raise_error(ObstacleError)
             end
         end
 
@@ -186,7 +186,7 @@ describe Rover360 do
                 mars_rover.start(start_pos[:x], start_pos[:y], direction, grid_fake)
 
                 # Act & Assert
-                expect{mars_rover.move(movement, grid_fake)}.to raise_error(ObstacleException)
+                expect{mars_rover.move(movement, grid_fake)}.to raise_error(ObstacleError)
             end
         end
     end

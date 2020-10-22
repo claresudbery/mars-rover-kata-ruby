@@ -40,7 +40,7 @@ class StraightLineRover
         new_y = wrap_if_necessary(@y + get_coord_diff(:y, movement), grid.height)
 
         if grid.contains_obstacle?(new_x, new_y)
-            raise ObstacleException.new
+            raise ObstacleError.new
         else
             @x = new_x
             @y = new_y
@@ -55,7 +55,7 @@ class StraightLineRover
 
     def detect_obstacle(x, y, grid)
         if grid.contains_obstacle?(x, y)
-            raise ObstacleException.new
+            raise ObstacleError.new
         end
     end
 

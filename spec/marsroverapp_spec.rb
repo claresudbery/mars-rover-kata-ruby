@@ -174,7 +174,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(expected_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including("#{ObstacleException::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{ObstacleError::MESSAGE}\n")).to_stdout
             end
             
             it "asks for new input if the start position is invalid because an obstacle is in the way" do
@@ -318,7 +318,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including("#{ObstacleException::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{ObstacleError::MESSAGE}\n")).to_stdout
             end
             
             it "shows an error when the rover can't move backwards because there is an obstacle in the way" do
@@ -329,7 +329,7 @@ class MarsRoverAppTests
                 allow(@communicator).to receive(:gets).and_return(initial_input, expected_move_input, "") 
 
                 # Act/Assert
-                expect{@mars_rover_app.start}.to output(a_string_including("#{ObstacleException::OBSTACLE_ERROR}\n")).to_stdout
+                expect{@mars_rover_app.start}.to output(a_string_including("#{ObstacleError::MESSAGE}\n")).to_stdout
             end
             
             it "asks for new input if a movement is invalid because an obstacle is in the way" do

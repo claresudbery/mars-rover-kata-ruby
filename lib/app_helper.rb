@@ -1,3 +1,7 @@
+require_relative 'exceptions/obstacle_error'
+require_relative 'exceptions/bad_input_exception'
+require_relative 'exceptions/sky_high_obstacle_exception'
+
 class AppHelper
     USER_INFORMATION_ALL_ROVERS = "There are three types of Rover: Straight-line rover = 'SLR', Rover360 = '360', FlyingRover = 'FLY'"
     USER_INFORMATION = "You may have heard rumours of flying rovers and straight-line rovers, but these are still under construction. For now we only have Rover360s. When creating a new rover, use '360' for type."
@@ -17,7 +21,7 @@ class AppHelper
             error = BAD_INPUT_ERROR
         rescue SkyHighObstacleException => e
             error = SKY_HIGH_OBSTACLE_ERROR
-        rescue ObstacleException => e
+        rescue ObstacleError => e
             error = e.message
         rescue StandardError => e
             error = e.message

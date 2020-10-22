@@ -1,2 +1,2 @@
-class SkyHighObstacleException < ObstacleException
+class SkyHighObstacleException < ObstacleError
 end
