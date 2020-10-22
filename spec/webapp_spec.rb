@@ -74,7 +74,7 @@ RSpec.describe 'The Mars Rover web app' do
             post "/marsrover", :instructions => move_rover
             
             # Assert
-            expect(last_response.body).to include(AppHelper::OBSTACLE_ERROR)
+            expect(last_response.body).to include(ObstacleException::OBSTACLE_ERROR)
         end
     end
 end
