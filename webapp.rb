@@ -12,7 +12,7 @@ class WebApp < Sinatra::Base
 
     get '/marsrover' do
         handle_exceptions do
-            update_grid
+            create_objects_if_necessary
             update_display
         end
 
@@ -21,7 +21,7 @@ class WebApp < Sinatra::Base
 
     post '/marsrover' do
         handle_exceptions do
-            update_grid
+            create_objects_if_necessary
             instructions = params["instructions"]
             AppHelper::process_instructions(instructions, session[:mars_rovers], session[:grid], MarsRoverFactory.new)
             update_display
@@ -51,7 +51,7 @@ class WebApp < Sinatra::Base
         grid
     end
 
-    def update_grid
+    def create_objects_if_necessary
         if session[:grid] == nil            
             session[:grid] = create_grid
             session[:mars_rovers] = Hash.new
