@@ -1,6 +1,6 @@
 require_relative 'exceptions/obstacle_error'
-require_relative 'exceptions/bad_input_exception'
-require_relative 'exceptions/sky_high_obstacle_exception'
+require_relative 'exceptions/bad_input_error'
+require_relative 'exceptions/sky_high_obstacle_error'
 
 class AppHelper
     USER_INFORMATION_ALL_ROVERS = "There are three types of Rover: Straight-line rover = 'SLR', Rover360 = '360', FlyingRover = 'FLY'"
@@ -17,9 +17,9 @@ class AppHelper
 
         begin
             yield
-        rescue BadInputException => e            
+        rescue BadInputError => e            
             error = BAD_INPUT_ERROR
-        rescue SkyHighObstacleException => e
+        rescue SkyHighObstacleError => e
             error = SKY_HIGH_OBSTACLE_ERROR
         rescue ObstacleError => e
             error = e.message

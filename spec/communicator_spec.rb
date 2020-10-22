@@ -40,13 +40,13 @@ describe Communicator do
         bad_inputs = ["!", "*"] # plus a lot more examples of bad input
         
         bad_inputs.each do |bad_input|
-            xit "raises an exception when input is invalid: '#{bad_input}'" do
+            xit "raises an exceptioan when input is invalid: '#{bad_input}'" do
                 # Arrange
                 communicator = described_class.new
                 allow(communicator).to receive(:gets).and_return(bad_input)
     
                 # Act & Assert
-                expect{communicator.get_input("Give me input pls")}.to raise_error(BadInputException)
+                expect{communicator.get_input("Give me input pls")}.to raise_error(BadInputError)
             end
         end
     end

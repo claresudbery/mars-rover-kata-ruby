@@ -1,0 +1,2 @@
+class BadInputError < StandardError
+end

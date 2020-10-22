@@ -7,7 +7,7 @@ class Communicator
         puts input_prompt
         stdinput = gets.chomp
         if is_invalid?(stdinput)
-            raise BadInputException.new
+            raise BadInputError.new
         end
         stdinput
     end
