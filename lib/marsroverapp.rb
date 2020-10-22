@@ -26,7 +26,7 @@ class MarsRoverApp
         begin
             yield
         rescue StandardError => e
-            puts e.message
+            @communicator.show_message(e.message)
             move_rover_repeatedly
         end
     end
