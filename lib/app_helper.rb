@@ -19,7 +19,7 @@ class AppHelper
         rescue SkyHighObstacleException => e
             error = SKY_HIGH_OBSTACLE_ERROR
         rescue ObstacleException => e
-            error = OBSTACLE_ERROR
+            error = e.message
         rescue StandardError => e
             error = e.message
         end
