@@ -130,7 +130,8 @@ We started this repo as a group in a couple of mob sessions, deliberately using 
     - From this commit up to commit 2ba60f1, I implemented the command line UI as a simple web front end.
 - [commit 9f857c0](https://github.com/claresudbery/mars-rover-kata-ruby/commit/9f857c0)
     - From this commit up to commit 0eb408c is an example of a step-by-step incremental refactor to put common code into a new AppHelper class.
-- [commit ](https://github.com/claresudbery/mars-rover-kata-ruby/commit/)
+- [commit 22df078](https://github.com/claresudbery/mars-rover-kata-ruby/commit/22df078)
+    - Another series of commits start here, that demonstrate an incremental refactor (up to commit 52baf27)
 - [commit ](https://github.com/claresudbery/mars-rover-kata-ruby/commit/)
 - [commit ](https://github.com/claresudbery/mars-rover-kata-ruby/commit/)
 - [commit ](https://github.com/claresudbery/mars-rover-kata-ruby/commit/)
