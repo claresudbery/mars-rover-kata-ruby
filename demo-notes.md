@@ -131,7 +131,7 @@ We started this repo as a group in a couple of mob sessions, deliberately using 
 - [commit 9f857c0](https://github.com/claresudbery/mars-rover-kata-ruby/commit/9f857c0)
     - From this commit up to commit 0eb408c is an example of a step-by-step incremental refactor to put common code into a new AppHelper class.
 - [commit 22df078](https://github.com/claresudbery/mars-rover-kata-ruby/commit/22df078)
-    - Another series of commits start here, that demonstrate an incremental refactor (up to commit 52baf27)
+    - Another series of commits start here, that demonstrate an incremental refactor (up to commit 52baf27) - changing the way exceptions are handled - (not handling them with separate rescue clauses, changing the way exception classes are named, changing the location where constant error strings are defined, changing the use of yield to remove unnecessary nested yields)
 - [commit ](https://github.com/claresudbery/mars-rover-kata-ruby/commit/)
 - [commit ](https://github.com/claresudbery/mars-rover-kata-ruby/commit/)
 - [commit ](https://github.com/claresudbery/mars-rover-kata-ruby/commit/)
