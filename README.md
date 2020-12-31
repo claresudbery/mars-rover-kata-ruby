@@ -1,5 +1,7 @@
 This is an implementation of the Mars Rover kata: https://learn.madetech.com/katas/mars-rover/
 
+It is deployed [here](https://mars-rover-kata-ruby.herokuapp.com/marsrover).
+
 ## Running the app
 
 Run `bundle install` first, then run the app like this (on the command line in the folder for the code):
