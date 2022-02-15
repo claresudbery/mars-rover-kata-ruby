@@ -51,7 +51,7 @@ describe Rover360 do
             it "will not change direction given input '#{movement}'" do
                 # Arrange 
                 grid_fake = double("Grid")
-                allow(grid_fake).to receive(:contains_obstacle?)
+                allow(grid_fake).to receive(:contains_obstacle?).and_return(false)
                 allow(grid_fake).to receive(:width).and_return(5)
                 allow(grid_fake).to receive(:height).and_return(5)
                 mars_rover = described_class.new("TST")
