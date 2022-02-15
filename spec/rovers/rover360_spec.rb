@@ -30,11 +30,9 @@ describe Rover360 do
                 # Arrange 
                 start_x = 0
                 start_y = 0
-                grid_stub = double("Grid")
-                allow(grid_stub).to receive(:contains_obstacle?)
                 mars_rover = described_class.new("TST")
-                mars_rover.start(start_x, start_y, StraightLineRover::NORTH, grid_stub)
-                
+                mars_rover.start(start_x, start_y, StraightLineRover::NORTH, grid)
+               
                 # Act
                 mars_rover.turn(turn)
 
@@ -50,15 +48,11 @@ describe Rover360 do
         simple_directions.each do |movement, expected_direction|
             it "will not change direction given input '#{movement}'" do
                 # Arrange 
-                grid_fake = double("Grid")
-                allow(grid_fake).to receive(:contains_obstacle?).and_return(false)
-                allow(grid_fake).to receive(:width).and_return(5)
-                allow(grid_fake).to receive(:height).and_return(5)
                 mars_rover = described_class.new("TST")
-                mars_rover.start(0, 0, expected_direction, grid_fake)        
-                
+                mars_rover.start(0, 0, expected_direction, grid)        
+               
                 # Act
-                mars_rover.move(movement, grid_fake)
+                mars_rover.move(movement, grid)
 
                 # Assert
                 expect(mars_rover.direction).to eq(expected_direction)
