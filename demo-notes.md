@@ -89,6 +89,8 @@ NOTE: This repo was originally in the Made Tech GitHub account and then I moved 
 
 We started this repo as a group in a couple of mob sessions, deliberately using pseudo code so that we could move quickly and think about how we wanted to proceed at each step. The following commits are all pseudo code. Later on I moved from pseudo code to real code (see below).
 
+!! SOME OF THESE COMMIT IDS REFER TO A DIFFERENT REPO - I COPIED THE CODE OVER FROM [THIS OTHER REPO](https://github.com/madetech/academy_2020_mob).
+
 - [commit 27b48f8](https://github.com/madetech/academy_2020_mob/commit/27b48f8) - First commit after mob sessions, to simplify things a little.
 - [commit c78308d](https://github.com/madetech/academy_2020_mob/commit/c78308d) - First acceptance test for showing the rover in the grid.
 - [commit 839e0c0](https://github.com/madetech/academy_2020_mob/commit/839e0c0) - Start implementing grid functionality (might want to skip this and move to the next commit).
