@@ -35,12 +35,22 @@ class StraightLineRover
         detect_obstacle(@x, @y, grid)
     end
 
-    def move(movement, grid)
-        new_x = wrap_if_necessary(@x + get_coord_diff(:x, movement), grid.width)
-        new_y = wrap_if_necessary(@y + get_coord_diff(:y, movement), grid.height)
+    def move(movement)
+        # Wrap coordinates to take account of going off the edge of the grid
+        # Calculate difference in coordinates using MOVEMENTS
+        new_x = (@x + (MOVEMENTS[@direction][:x] * movement_multiplier(movement)) + grid.width) % grid.width
+        new_y = (@y + (MOVEMENTS[@direction][:y] * movement_multiplier(movement)) + grid.height) % grid.height
 
-        if grid.contains_obstacle?(new_x, new_y)
-            raise ObstacleError.new
+        # Build a grid
+        @width = width
+        @height = height
+        @grid_array = make_grid(width, height)
+
+        # Check whether grid contains obstacles
+        if grid_array[new_y][new_x] != EMPTY_CELL
+            # Raise an obstacle error
+            error = StandardError.new((msg = "Oh no, I'm sorry, I can't process that instruction. There is an obstacle in the way!"))
+            raise error
         else
             @x = new_x
             @y = new_y
