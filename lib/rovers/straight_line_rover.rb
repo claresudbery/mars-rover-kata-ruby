@@ -40,12 +40,9 @@ class StraightLineRover
 		new_x = (@x + get_coord_diff(:x, movement) + grid.width) % grid.width
         new_y = (@y + get_coord_diff(:y, movement) + grid.height) % grid.height
 
-        # Build a grid
-        @width = width
-        @height = height
-        @grid_array = make_grid(width, height)
-
-        if grid_contains_obstacle?(new_x, new_y)
+        grid = Grid.new(5, 5)
+            
+        if grid.contains_obstacle?(new_x, new_y)
             # Raise an obstacle error
             error = StandardError.new((msg = "Oh no, I'm sorry, I can't process that instruction. There is an obstacle in the way!"))
             raise error
