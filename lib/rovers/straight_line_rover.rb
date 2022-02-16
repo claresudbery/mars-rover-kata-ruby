@@ -36,8 +36,8 @@ class StraightLineRover
     end
 
 	def move(movement, grid)
-		new_x = wrap_if_necessary(@x + get_coord_diff(:x, movement), grid.width)
-        new_y = wrap_if_necessary(@y + get_coord_diff(:y, movement), grid.height)
+		new_x = wrap_if_necessary(new_x_after(movement), grid.width)
+        new_y = wrap_if_necessary(new_y_after(movement), grid.height)
             
         if grid.contains_obstacle?(new_x, new_y)
             raise ObstacleError.new
@@ -83,6 +83,14 @@ class StraightLineRover
     
     def movement_multiplier(movement)
         movement == FORWARD ? 1 : -1
+    end
+
+    def new_x_after(movement)
+        @x + get_coord_diff(:x, movement)
+    end
+
+    def new_y_after(movement)
+        @y + get_coord_diff(:y, movement)
     end
 
     def grid_contains_obstacle?(x, y)
