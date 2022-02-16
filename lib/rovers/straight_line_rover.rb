@@ -45,8 +45,7 @@ class StraightLineRover
         @height = height
         @grid_array = make_grid(width, height)
 
-        # Check whether grid contains obstacles
-        if grid_array[new_y][new_x] != EMPTY_CELL
+        if grid_contains_obstacle?(new_x, new_y)
             # Raise an obstacle error
             error = StandardError.new((msg = "Oh no, I'm sorry, I can't process that instruction. There is an obstacle in the way!"))
             raise error
@@ -92,5 +91,9 @@ class StraightLineRover
     
     def movement_multiplier(movement)
         movement == FORWARD ? 1 : -1
+    end
+
+    def grid_contains_obstacle?(x, y)
+        @grid_array[y][x] != EMPTY_CELL
     end
 end
