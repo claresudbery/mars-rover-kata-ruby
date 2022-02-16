@@ -37,9 +37,8 @@ class StraightLineRover
 
     def move(movement)
         # Wrap coordinates to take account of going off the edge of the grid
-        # Calculate difference in coordinates using MOVEMENTS
-        new_x = (@x + (MOVEMENTS[@direction][:x] * movement_multiplier(movement)) + grid.width) % grid.width
-        new_y = (@y + (MOVEMENTS[@direction][:y] * movement_multiplier(movement)) + grid.height) % grid.height
+		new_x = (@x + get_coord_diff(:x, movement) + grid.width) % grid.width
+        new_y = (@y + get_coord_diff(:y, movement) + grid.height) % grid.height
 
         # Build a grid
         @width = width
