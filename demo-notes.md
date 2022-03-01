@@ -1,3 +1,7 @@
+# How to see this file when demonstrating 
+
+There's a separate copy of this file in the `academy_2020_mob` repo, so that you can branch from various different commits in this code base when demonstrating, but still see these full notes.
+
 # Intro
 
 This project has been developed with the aim of demonstrating various software development principles (mostly relating to SOLID and ATDD). These are notes to aid a demo by pointing out things demonstrated by particular commits.
