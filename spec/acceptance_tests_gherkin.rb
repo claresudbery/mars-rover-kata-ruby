@@ -6,32 +6,12 @@ And "the grid shows existing sky-high obstacles"
 And "the user is prompted for coordinates, direction, name and type of the first rover"
 
 Given "the user has started the program"
-When "the user inputs invalid coordinates, direction, name or type"
-Then "the user is shown an error"
-
-Given "the user has started the program"
-When "the user asks to create a straight-line Rover facing East or West"
-Then "the user is shown an error"
-
-Given "the user has started the program"
-When "the user inputs coordinates that conflict with an obstacle"
-Then "the user is shown an error"
-
-Given "the user has started the program"
-When "the user inputs coordinates for a flying rover that conflict with a sky-high obstacle"
-Then "the user is shown an error"
-
-Given "the user has started the program"
 When "the user inputs the coordinates, direction, name and type of the first rover"
 Then "the display is updated with the position of the rover"
 And "the display is updated with the direction of the rover"
 And "the display is updated with the name of the rover"
 And "the display is updated with the type of the rover"
 And "the user is prompted to input movement or direction for the existing rover, or create a new rover"
-
-Given "the user has input the coordinates and direction of the first rover"
-When "the user gives an invalid further instruction"
-Then "the user is shown an error"
 
 Given "the user has input the coordinates and direction for a specified rover"
 When "the user tells that rover to move forwards"
@@ -56,6 +36,26 @@ Then "the display is updated with that rover facing in the opposite direction"
 Given "the user has input the name, coordinates and direction for a straight-line rover"
 When "the user tells that rover to turn right"
 Then "the display is updated with that rover facing in the opposite direction"
+
+Given "the user has input the coordinates and direction of the first rover"
+When "the user gives an invalid further instruction"
+Then "the user is shown an error"
+
+Given "the user has started the program"
+When "the user inputs invalid coordinates, direction, name or type"
+Then "the user is shown an error"
+
+Given "the user has started the program"
+When "the user asks to create a straight-line Rover facing East or West"
+Then "the user is shown an error"
+
+Given "the user has started the program"
+When "the user inputs coordinates that conflict with an obstacle"
+Then "the user is shown an error"
+
+Given "the user has started the program"
+When "the user inputs coordinates for a flying rover that conflict with a sky-high obstacle"
+Then "the user is shown an error"
 
 Given "the user has input coordinates and direction placing a specified rover facing the edge of the grid"
 When "the user tells that rover to move forwards"
