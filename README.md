@@ -18,6 +18,10 @@ rackup -p 4567
 
 ...and then visit http://127.0.0.1:4567/marsrover in the browser.
 
+## Running tests
+
+- To run tests: either `rspec` or `bundle exec rspec` (depending whether you did a global bundle install or a vendor one, I think (eg if you ran `bundle config set --local path 'vendor/bundle'` before you ran `bundle install`))
+
 ## Demo Notes
 
 For useful commits and notes on what they demonstrate, see separate [demo notes page](demo-notes.md).
